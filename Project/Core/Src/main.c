@@ -172,7 +172,7 @@ void display7SEG(int num) {
 
 const int MAX_LED = 4;
 int index_led = 0;
-int led_buffer[4] = {8, 8, 8, 8};
+int led_buffer[4] = {1, 2, 3, 4};
 void update7SEG(int index) {
 	switch(index) {
 	case 0:
@@ -202,6 +202,8 @@ void update7SEG(int index) {
 		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, SET);
 		HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, RESET);
 		display7SEG(led_buffer[3]);
+		break;
+	default:
 		break;
 	}
 }
@@ -349,8 +351,8 @@ static void MX_GPIO_Init(void)
                           |EN2_Pin|EN3_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG5_Pin
-                          |SEG6_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin
+                          |SEG4_Pin|SEG5_Pin|SEG6_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : DOT_Pin LED_RED_Pin EN0_Pin EN1_Pin
                            EN2_Pin EN3_Pin */
@@ -361,19 +363,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin SEG5_Pin
-                           SEG6_Pin */
-  GPIO_InitStruct.Pin = SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG5_Pin
-                          |SEG6_Pin;
+  /*Configure GPIO pins : SEG0_Pin SEG1_Pin SEG2_Pin SEG3_Pin
+                           SEG4_Pin SEG5_Pin SEG6_Pin */
+  GPIO_InitStruct.Pin = SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG3_Pin
+                          |SEG4_Pin|SEG5_Pin|SEG6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : SEG3_Pin SEG4_Pin */
-  GPIO_InitStruct.Pin = SEG3_Pin|SEG4_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
