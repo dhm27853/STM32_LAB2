@@ -273,20 +273,15 @@ void updateLEDMatrix(int index) {
 	}
 }
 
-void shiftRight() {
-	if (matrix_buffer[7] == 0) {
-		matrix_buffer[0] = 0x18;
-		matrix_buffer[1] = 0x3C;
-		matrix_buffer[2] = 0x66;
-		matrix_buffer[3] = 0x66;
-		matrix_buffer[4] = 0x7E;
-		matrix_buffer[5] = 0x7E;
-		matrix_buffer[6] = 0x66;
-		matrix_buffer[7] = 0x66;
-	}
-	for (int row = 0; row < 8; row++) {
-		matrix_buffer[row] <<= 1;
-	}
+void shiftUp() {
+	int tmp = matrix_buffer[0];
+	matrix_buffer[0] = matrix_buffer[1];
+	matrix_buffer[1] = matrix_buffer[2];
+	matrix_buffer[2] = matrix_buffer[3];
+	matrix_buffer[3] = matrix_buffer[4];
+	matrix_buffer[4] = matrix_buffer[5];
+	matrix_buffer[5] = matrix_buffer[6];
+	matrix_buffer[6] = tmp;
 }
 /* USER CODE END 0 */
 
@@ -367,7 +362,7 @@ int main(void)
 	  }
 
 	  if (timer3_flag == 1) {
-		  shiftRight();
+		  shiftUp();
 		  setTimer3(100);
 	  }
     /* USER CODE END WHILE */
